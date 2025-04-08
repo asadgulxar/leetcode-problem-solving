@@ -39,3 +39,39 @@ var searchInsert = function (nums, target) {
 
   return left;
 };
+
+// 3396. Minimum Number of Operations to Make Elements in Array Distinct
+// You are given an integer array nums. You need to ensure that the elements in the array are distinct. To achieve this, you can perform the following operation any number of times:
+
+// Remove 3 elements from the beginning of the array. If the array has fewer than 3 elements, remove all remaining elements.
+// Note that an empty array is considered to have distinct elements. Return the minimum number of operations needed to make the elements in the array distinct.
+
+// link: 3396. Minimum Number of Operations to Make Elements in Array Distinct
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minimumOperations = function (nums) {
+  let operations = 0;
+
+  while (true) {
+    const seen = new Set();
+    let hasDuplicate = false;
+
+    for (let num of nums) {
+      if (seen.has(num)) {
+        hasDuplicate = true;
+        break;
+      }
+      seen.add(num);
+    }
+
+    if (!hasDuplicate) break;
+
+    nums.splice(0, 3);
+    operations++;
+  }
+
+  return operations;
+};
