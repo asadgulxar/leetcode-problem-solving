@@ -102,3 +102,31 @@ var plusOne = function (digits) {
   digits.unshift(1);
   return digits;
 };
+
+// 118. Pascal's Triangle
+// Given an integer numRows, return the first numRows of Pascal's triangle.
+
+// In Pascal's triangle, each number is the sum of the two numbers directly above it
+
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function (numRows) {
+  const triangle = [];
+
+  for (let i = 0; i < numRows; i++) {
+    const row = [1];
+
+    for (let j = 1; j < i; j++) {
+      const prevRow = triangle[i - 1];
+      row.push(prevRow[j - 1] + prevRow[j]);
+    }
+
+    if (i > 0) row.push(1);
+
+    triangle.push(row);
+  }
+
+  return triangle;
+};
