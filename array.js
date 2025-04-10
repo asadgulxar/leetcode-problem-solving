@@ -224,3 +224,64 @@ var sortedArrayToBST = function (nums) {
 
   return buildTree(0, nums.length - 1);
 };
+
+// 148. Sort List
+// Given the head of a linked list, return the list after sorting it in ascending order.
+// link: https://leetcode.com/problems/sort-list/description/?envType=study-plan-v2&envId=top-interview-150
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+
+function getMiddle(head) {
+  if (!head || !head.next) return head;
+
+  let slow = head;
+  let fast = head;
+  let prev = null;
+
+  while (fast && fast.next) {
+    prev = slow;
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // This will split the list into two halves
+  if (prev) prev.next = null;
+
+  return slow;
+}
+function merge(l1, l2) {
+  let dummy = new ListNode(0);
+  let current = dummy;
+
+  while (l1 && l2) {
+    if (l1.val < l2.val) {
+      current.next = l1;
+      l1 = l1.next;
+    } else {
+      current.next = l2;
+      l2 = l2.next;
+    }
+    current = current.next;
+  }
+
+  current.next = l1 || l2;
+  return dummy.next;
+}
+var sortList = function (head) {
+  if (!head || !head.next) return head;
+
+  let mid = getMiddle(head);
+  let left = sortList(head);
+  let right = sortList(mid);
+  return merge(left, right);
+};
