@@ -384,3 +384,18 @@ function findMin(nums) {
 
   return nums[left];
 }
+
+// Given a positive integer n, write a function that returns the number of set bits in its binary representation (also known as the Hamming weight).
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var hammingWeight = function (n) {
+  const binary = n.toString(2);
+  let count = 0;
+  for (const char of binary) {
+    if (char === "1") count++;
+  }
+  return count;
+};
