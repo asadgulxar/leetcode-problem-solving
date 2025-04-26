@@ -451,3 +451,22 @@ var reverseList = function (head) {
 
   return prev;
 };
+
+// Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+// The overall run time complexity should be O(log (m+n)).
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function (nums1, nums2) {
+  let mergedArray = [...nums1, ...nums2];
+  mergedArray = mergedArray.sort((a, b) => a - b);
+  if (!(mergedArray.length % 2 === 0)) {
+    const index = Math.ceil(mergedArray.length / 2) - 1;
+    return mergedArray[index];
+  }
+  const index = Math.ceil(mergedArray.length / 2) - 1;
+  return (mergedArray[index] + mergedArray[index + 1]) / 2;
+};
