@@ -470,3 +470,42 @@ var findMedianSortedArrays = function (nums1, nums2) {
   const index = Math.ceil(mergedArray.length / 2) - 1;
   return (mergedArray[index] + mergedArray[index + 1]) / 2;
 };
+
+// 7. Reverse Integer
+
+// Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
+
+// Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function (x) {
+  const INT_MIN = -(2 ** 31); // -2147483648
+  const INT_MAX = 2 ** 31 - 1; // 2147483647
+
+  let reversed = 0;
+  while (x !== 0) {
+    const digit = x % 10;
+    x = (x / 10) | 0; // Truncate toward zero
+
+    // Check for overflow/underflow before appending the digit
+    if (
+      reversed > Math.floor(INT_MAX / 10) ||
+      (reversed === Math.floor(INT_MAX / 10) && digit > 7)
+    ) {
+      return 0;
+    }
+    if (
+      reversed < Math.ceil(INT_MIN / 10) ||
+      (reversed === Math.ceil(INT_MIN / 10) && digit < -8)
+    ) {
+      return 0;
+    }
+
+    reversed = reversed * 10 + digit;
+  }
+
+  return reversed;
+};
